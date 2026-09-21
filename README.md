@@ -193,6 +193,7 @@ Indexes quan trọng:
 
 1. Push source lên Git provider hoặc import project vào Vercel.
 2. Set toàn bộ env variables ở Vercel Project Settings.
+   Với `GOOGLE_PRIVATE_KEY`, dán riêng giá trị `private_key` trong JSON của service account, gồm cả `BEGIN/END PRIVATE KEY`, không dán cả JSON hoặc dấu ngoặc kép bên ngoài. Chọn môi trường **Production** và redeploy sau khi sửa env.
 3. MongoDB Atlas phải cho phép kết nối từ Vercel (thường dùng Network Access phù hợp cho serverless).
 4. Deploy bằng build mặc định:
 

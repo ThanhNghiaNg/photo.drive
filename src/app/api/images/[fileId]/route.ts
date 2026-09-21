@@ -58,6 +58,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ file
       },
     });
   } catch (error: any) {
-    return new NextResponse(error?.message || "Image unavailable", { status: 404 });
+    if (error?.response?.status === 404) {
+      return new NextResponse("Not found", { status: 404 });
+    }
+    console.error("Failed to serve image:", error instanceof Error ? error.message : String(error));
+    return new NextResponse("Image unavailable", { status: 500 });
   }
 }

@@ -1,8 +1,25 @@
 import { google, drive_v3 } from "googleapis";
+import { createPrivateKey } from "node:crypto";
 import { getServerEnv } from "@/lib/env";
 
 let cachedDrive: drive_v3.Drive | null = null;
 let cachedAuth: any = null;
+
+function normalizePrivateKey(value: string) {
+  const trimmed = value.trim();
+  const quote = trimmed[0];
+  const unquoted = (quote === '"' || quote === "'") && trimmed.endsWith(quote)
+    ? trimmed.slice(1, -1)
+    : trimmed;
+  const key = unquoted.replace(/\\+n/g, "\n");
+
+  try {
+    createPrivateKey(key);
+  } catch {
+    throw new Error("Invalid GOOGLE_PRIVATE_KEY: use the private_key value from the service account JSON.");
+  }
+  return key;
+}
 
 function getDriveAuth() {
   if (cachedAuth) return cachedAuth;
@@ -11,7 +28,7 @@ function getDriveAuth() {
     credentials: {
       project_id: env.GOOGLE_PROJECT_ID,
       client_email: env.GOOGLE_CLIENT_EMAIL,
-      private_key: env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      private_key: normalizePrivateKey(env.GOOGLE_PRIVATE_KEY),
     },
     scopes: ["https://www.googleapis.com/auth/drive.readonly"],
   });
