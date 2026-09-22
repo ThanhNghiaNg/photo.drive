@@ -34,7 +34,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
       {hero && (
         <section className="relative overflow-hidden bg-slate-900">
           <div className="relative h-[360px] sm:h-[430px] lg:h-[500px]">
-            {hero.thumbnailFileId && <Image src={`/api/images/${hero.thumbnailFileId}`} alt={hero.name} fill priority className="object-cover opacity-70" sizes="100vw" />}
+            {hero.thumbnailFileId && <Image src={`/api/images/${hero.thumbnailFileId}`} alt={hero.name} fill priority unoptimized className="object-cover opacity-70" sizes="100vw" />}
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
             <div className="container-page relative flex h-full items-end pb-10 sm:pb-14">
               <div className="max-w-3xl text-white">

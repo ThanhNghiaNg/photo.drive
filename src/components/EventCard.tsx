@@ -12,6 +12,7 @@ export default function EventCard({ event }: { event: EventDTO }) {
             src={`/api/images/${event.thumbnailFileId}?variant=thumb`}
             alt={event.name}
             fill
+            unoptimized
             className="object-cover transition duration-300 group-hover:scale-[1.03]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
